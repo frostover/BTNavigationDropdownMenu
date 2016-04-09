@@ -119,6 +119,26 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
+    // The checkmark icon height
+    public var checkMarkImageHeight: CGFloat! {
+        get {
+            return self.configuration.checkMarkImageHeight
+        }
+        set(value) {
+            self.configuration.checkMarkImageHeight = value
+        }
+    }
+    
+    // The checkmark icon width
+    public var checkMarkImageWidth: CGFloat! {
+        get {
+            return self.configuration.checkMarkImageWidth
+        }
+        set(value) {
+            self.configuration.checkMarkImageWidth = value
+        }
+    }
+    
     // The animation duration of showing/hiding menu. Default is 0.3
     public var animationDuration: NSTimeInterval! {
         get {
@@ -408,6 +428,8 @@ class BTConfiguration {
     var cellTextLabelAlignment: NSTextAlignment!
     var cellSelectionColor: UIColor?
     var checkMarkImage: UIImage!
+    var checkMarkImageHeight: CGFloat!
+    var checkMarkImageWidth: CGFloat!
     var arrowImage: UIImage!
     var arrowPadding: CGFloat!
     var animationDuration: NSTimeInterval!
@@ -436,6 +458,8 @@ class BTConfiguration {
         self.cellTextLabelAlignment = NSTextAlignment.Left
         self.cellSelectionColor = UIColor.lightGrayColor()
         self.checkMarkImage = UIImage(contentsOfFile: checkMarkImagePath!)
+        self.checkMarkImageHeight = 30;
+        self.checkMarkImageWidth = 30;
         self.animationDuration = 0.5
         self.arrowImage = UIImage(contentsOfFile: arrowImagePath!)
         self.arrowPadding = 15
@@ -550,11 +574,11 @@ class BTTableViewCell: UITableViewCell {
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .Center {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - self.configuration.checkMarkImageHeight)/2, self.configuration.checkMarkImageWidth, self.configuration.checkMarkImageHeight))
         } else if self.textLabel!.textAlignment == .Left {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - self.configuration.checkMarkImageHeight)/2, self.configuration.checkMarkImageWidth, self.configuration.checkMarkImageHeight))
         } else {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
+            self.checkmarkIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - self.configuration.checkMarkImageHeight)/2, self.configuration.checkMarkImageWidth, self.configuration.checkMarkImageHeight))
         }
         self.checkmarkIcon.hidden = true
         self.checkmarkIcon.image = self.configuration.checkMarkImage
